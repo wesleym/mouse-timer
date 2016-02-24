@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+
+<script>
+function refresh() {
+  document.body.innerText = new Date
+  requestAnimationFrame(refresh)
+}
+
+requestAnimationFrame(refresh)
+</script>
