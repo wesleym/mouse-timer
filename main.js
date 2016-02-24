@@ -1,7 +1,7 @@
-
-
-destinationDate = new Date('22 Mar 2016 16:45:00 -0700')
 timer = document.querySelector('#timer')
+input = document.querySelector('#input')
+
+destinationDate = new Date(input.value)
 
 function refresh() {
   var flooringFraction, itemFraction
