@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 
 <script>
+destinationDate = new Date('22 Mar 2016 16:45:00 -0700')
+
 function refresh() {
-  document.body.innerText = new Date
+  var remainingMillis = destinationDate - Date.now()
+  document.body.innerText = remainingMillis
+
   requestAnimationFrame(refresh)
 }
 
