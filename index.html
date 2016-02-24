@@ -46,9 +46,8 @@ function refresh() {
   itemFraction = 24
   var days = Math.floor(remainingMillis / flooringFraction)
   timer.innerText = days + ' ' + hours + ':' + minutes + ':' + seconds
-
-  requestAnimationFrame(refresh)
 }
 
-requestAnimationFrame(refresh)
+refresh()
+setInterval(refresh, 500)
 </script>
