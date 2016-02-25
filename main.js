@@ -21,22 +21,16 @@ function refresh() {
 }
 
 function destinationUpdated() {
-  destinationDate = new Date(input.value)
-  localStorage.setItem('destinationDate', destinationDate.toISOString())
+  destinationDate = partialToLocal(input.value)
+  localStorage.setItem('destinationDate', destinationDate)
   refresh()
 }
 
 function init() {
   if (localStorage.destinationDate) {
-    var isoString = localStorage.destinationDate
-    destinationDate = new Date(isoString)
-    console.log(createLocalDatetime(destinationDate))
+    destinationDate = new Date(localStorage.destinationDate)
     input.value = createLocalDatetime(destinationDate)
   }
-}
-
-function createLocalDatetime(date) {
-  return date.getFullYear() + '-' + pad(date.getMonth() + 1, 2) + '-' + pad(date.getDate(), 2) + 'T' + pad(date.getHours(), 2) + ':' + pad(date.getMinutes(), 2) + ':' + pad(date.getSeconds(), 2) + '.' + date.getMilliseconds()
 }
 
 function pad(a, digits) {
@@ -44,7 +38,7 @@ function pad(a, digits) {
   if (result.length < digits) {
     return '0'.repeat(digits - result.length) + result;
   } else {
-    return result
+    return a
   }
 }
 
