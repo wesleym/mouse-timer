@@ -1,35 +1,24 @@
 timer = document.querySelector('#timer')
 input = document.querySelector('#input')
+localFormat = 'YYYY-MM-DDTHH:mm:ss'
 
 function refresh() {
-  var flooringFraction, itemFraction
-  var remainingMillis = destinationDate - Date.now()
-  flooringFraction = 1000
-  itemFraction = 60
-  var seconds = Math.floor(remainingMillis / flooringFraction) % itemFraction
-  flooringFraction *= itemFraction
-  itemFraction = 60
-  var minutes = Math.floor(remainingMillis / flooringFraction) % itemFraction
-  flooringFraction *= itemFraction
-  itemFraction = 24
-  var hours = Math.floor(remainingMillis / flooringFraction) % itemFraction
-  flooringFraction *= itemFraction
-  var days = Math.floor(remainingMillis / flooringFraction)
-  timer.innerText = days + ' ' + hours + ':' + pad(minutes, 2) + ':' + pad(seconds, 2)
+  var remaining = moment.duration(destinationDate - moment.now())
+  timer.innerText = remaining.days() + ' ' + remaining.hours() + ':' + pad(remaining.minutes(), 2) + ':' + pad(remaining.seconds(), 2)
 }
 
 function destinationUpdated() {
-  destinationDate = partialToLocal(input.value)
-  localStorage.setItem('destinationDate', destinationDate)
+  destinationDate = moment(input.value)
+  localStorage.setItem('destinationDate', destinationDate.format())
   refresh()
 }
 
 function init() {
   if (localStorage.destinationDate) {
-    destinationDate = new Date(localStorage.destinationDate)
-    input.value = createLocalDatetime(destinationDate)
+    destinationDate = moment(localStorage.destinationDate)
+    input.value = destinationDate.format(localFormat)
   } else {
-    destinationDate = partialToLocal(input.value)
+    destinationDate = moment(input.value)
   }
 }
 
