@@ -1,8 +1,6 @@
 timer = document.querySelector('#timer')
 input = document.querySelector('#input')
 
-destinationDate = new Date(input.value)
-
 function refresh() {
   var flooringFraction, itemFraction
   var remainingMillis = destinationDate - Date.now()
@@ -30,6 +28,8 @@ function init() {
   if (localStorage.destinationDate) {
     destinationDate = new Date(localStorage.destinationDate)
     input.value = createLocalDatetime(destinationDate)
+  } else {
+    destinationDate = partialToLocal(input.value)
   }
 }
 
